@@ -1,0 +1,31 @@
+version: '3'
+services:
+  spark:
+    image: apache/spark-py:v3.4.0
+    command: ["/bin/bash", "-c", "/opt/spark/sbin/start-connect-server.sh  --packages io.weaviate:spark-connector_2.12:1.2.8,org.apache.spark:spark-connect_2.12:3.4.0; sleep infinity"]
+    user: root
+    ports:
+      - 4040:4040
+
+  weaviate:
+    command:
+    - --host
+    - 0.0.0.0
+    - --port
+    - '8080'
+    - --scheme
+    - http
+    image: semitechnologies/weaviate:1.20.5
+    ports:
+    - 8080:8080
+    restart: on-failure:0
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      DEFAULT_VECTORIZER_MODULE: 'none'
+      ENABLE_MODULES: ''
+      CLUSTER_HOSTNAME: 'node1'
+
+  devcontainer:
+    image: mcr.microsoft.com/devcontainers/python:0-3.11
