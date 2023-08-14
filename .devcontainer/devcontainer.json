@@ -18,7 +18,16 @@
 	// connected. This is typically a file mount in .devcontainer/docker-compose.yml
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"features": {
-		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+		"ghcr.io/devcontainers/features/java": {
+			"version": "17",
+			"installMaven": true,
+			"jdkDistro": "tem"
+		},
+		"ghcr.io/ebaskoro/devcontainer-features/scala": {
+			"installSbt": true,
+			"version": "2.12.17"
+		}
 	},
 	"customizations": {
 		"vscode": {
@@ -31,6 +40,16 @@
 				"ms-python.python"
 			]
 		}
+	},
+	"containerEnv": {
+		"CONFLUENT_CLUSTER_NAME": "YOUR_CONFLUENT_CLUSTER_NAME",
+		"CONFLUENT_BOOTSTRAP_SERVERS": "YOUR_CONFLUENT_BOOTSTRAP_SERVERS",
+		"CONFLUENT_TOPIC_NAME": "YOUR_CONFLUENT_TOPIC_NAME",
+		"SCHEMA_REGISTRY_URL": "YOUR_SCHEMA_REGISTRY_URL",
+		"CONFLUENT_API_KEY": "YOUR_CONFLUENT_API_KEY",
+		"CONFLUENT_SECRET": "YOUR_CONFLUENT_SECRECT",
+		"CONFLUENT_REGISTRY_API_KEY": "YOUR_CONFLUENT_REGISTRY_API_KEY",
+		"CONFLUENT_REGISTRY_SECRET": "YOUR_CONFLUENT_REGISTRY_SECRECT"
 	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
@@ -46,7 +65,7 @@
 	// "shutdownAction": "none",
 
 	// Uncomment the next line to run commands after the container is created.
-	// "postCreateCommand": "cat /etc/os-release",
+	"postCreateCommand": "make setup",
 
 	// Configure tool-specific properties.
 	// "customizations": {},
