@@ -3,3 +3,4 @@ weaviate-client
 ipykernel
 black[jupyter]
 isort
+confluent-kafka[avro,json,protobuf]>=1.4.2
