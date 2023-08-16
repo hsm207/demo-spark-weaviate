@@ -4,3 +4,6 @@ setup:
 format:
 	black notebooks
 	isort notebooks
+
+clear:
+	rm -r notebooks/data
